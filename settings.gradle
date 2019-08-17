@@ -1,1 +1,2 @@
-include ':app'
+include ':app' , ':utils'
+project(':utils').projectDir = new File("lib/AndroidUtils")
