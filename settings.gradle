@@ -1,2 +1,2 @@
 include ':app' , ':utils'
-project(':utils').projectDir = new File("lib/AndroidUtils")
+project(':utils').projectDir = new File("libs/AndroidUtils")
