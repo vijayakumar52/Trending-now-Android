@@ -1,3 +1,6 @@
 [submodule "lib"]
 	path = lib/AndroidUtils
 	url = https://github.com/vijayakumar52/Android-Utils.git
+[submodule "libs/AndroidUtils"]
+	path = libs/AndroidUtils
+	url = https://github.com/vijayakumar52/Android-Utils.git
