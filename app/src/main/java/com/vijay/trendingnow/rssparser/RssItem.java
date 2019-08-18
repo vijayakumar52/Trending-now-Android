@@ -33,6 +33,8 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	private Date pubDate;
 	private String description;
 	private String content;
+	private String views;
+	private String imageURL;
 
 	public RssItem() {
 		
@@ -47,6 +49,8 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		description = data.getString("description");
 		content = data.getString("content");
 		feed = data.getParcelable("feed");
+		views = data.getString("ht:approx_traffic");
+		imageURL = data.getString("ht:picture");
 		
 	}
 
@@ -60,6 +64,8 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		data.putString("description", description);
 		data.putString("content", content);
 		data.putParcelable("feed", feed);
+		data.putString("ht:approx_traffic", views);
+		data.putString("ht:picture", imageURL);
 		dest.writeBundle(data);
 	}
 	
@@ -142,5 +148,20 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 			return 0;
 		}
 	}
-	
+
+	public String getViews() {
+		return views;
+	}
+
+	public void setViews(String views) {
+		this.views = views;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
 }

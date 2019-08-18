@@ -14,7 +14,11 @@ class DashboardRepository(private val databaseInstance: AppDatabase) {
         compositeDisposable.add(networkManager.getGoogleTrendingList().subscribeOn(Schedulers.io()).subscribe({ rssItems ->
             val trendingList = ArrayList<TrendingData>()
             for (item in rssItems) {
-                trendingList.add(TrendingData(item.title))
+                trendingList.add(TrendingData(item.title).apply {
+                    imageURL = item.imageURL
+                    views = item.views
+                    link = item.link
+                })
             }
             addRecord(trendingList)
         }, {
