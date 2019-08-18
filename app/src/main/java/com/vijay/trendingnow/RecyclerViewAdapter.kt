@@ -10,7 +10,7 @@ import com.vijay.trendingnow.db.TrendingData
 
 class RecyclerViewAdapter(val context: Context, var listItems: List<TrendingData>) : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        return CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_elements, null))
+        return CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_elements, parent, false))
     }
 
     fun updateItems(newElements: List<TrendingData>) {
@@ -28,6 +28,6 @@ class RecyclerViewAdapter(val context: Context, var listItems: List<TrendingData
 
 
     inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val text = view.findViewById<TextView>(R.id.tv_name)
+        val text = view.findViewById<TextView>(R.id.tv_title)
     }
 }
