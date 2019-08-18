@@ -9,5 +9,5 @@ class DashboardViewModel() : ViewModel() {
     val repository = DashboardRepository(AppController.instance.appDatabase)
     private val googleTrendingList: MutableLiveData<List<TrendingData>> = MutableLiveData()
 
-    fun getGoogleTrendingList(): LiveData<List<TrendingData>> = repository.getGoogleTrendings()
+    fun getGoogleTrendingList(): LiveData<List<TrendingData>> = repository.getGoogleTrendingList()
 }
