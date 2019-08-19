@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         dashboardVieModel.getGoogleTrendingList().observe(this, Observer { result ->
             Logger.d("DB size", result.size.toString())
             if (recyclerView.adapter == null) {
-                val adapter = RecyclerViewAdapter(this, result!!)
+                val adapter = RecyclerViewAdapter(this, recyclerView, result!!)
                 recyclerView.adapter = adapter
             } else {
                 (recyclerView.adapter as RecyclerViewAdapter).updateItems(result!!)

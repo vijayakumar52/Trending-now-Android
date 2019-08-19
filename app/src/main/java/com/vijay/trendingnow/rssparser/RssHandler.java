@@ -16,6 +16,8 @@
 
 package com.vijay.trendingnow.rssparser;
 
+import com.vijay.trendingnow.model.News;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -27,6 +29,7 @@ public class RssHandler extends DefaultHandler {
     private RssFeed rssFeed;
     private RssItem rssItem;
     private StringBuilder stringBuilder;
+    private News currentNews = null;
 
     @Override
     public void startDocument() {
@@ -48,8 +51,11 @@ public class RssHandler extends DefaultHandler {
 
         if (qName.equals("item") && rssFeed != null) {
             rssItem = new RssItem();
-            rssItem.setFeed(rssFeed);
             rssFeed.addRssItem(rssItem);
+        }
+
+        if (qName.equals("ht:news_item")) {
+            currentNews = new News();
         }
     }
 
@@ -90,6 +96,7 @@ public class RssHandler extends DefaultHandler {
                 if (qName.equals("ht:picture")) {
                     qName = "imageURL";
                 }
+
                 String methodName = "set" + qName.substring(0, 1).toUpperCase() + qName.substring(1);
                 Method method = rssItem.getClass().getMethod(methodName, String.class);
                 method.invoke(rssItem, stringBuilder.toString());
@@ -98,6 +105,33 @@ public class RssHandler extends DefaultHandler {
             } catch (IllegalArgumentException e) {
             } catch (IllegalAccessException e) {
             } catch (InvocationTargetException e) {
+            }
+
+            if (qName.equals("ht:news_item_title")) {
+                currentNews.setTitle(stringBuilder.toString());
+            }
+            if (qName.equals("ht:news_item_snippet")) {
+                currentNews.setDetails(stringBuilder.toString());
+            }
+            if (qName.equals("ht:news_item_url")) {
+                currentNews.setLink(stringBuilder.toString());
+            }
+            if (qName.equals("ht:news_item_source")) {
+                currentNews.setSource(stringBuilder.toString());
+            }
+
+            if (qName.equals("ht:news_item")) {
+                String methodName = "addNews";
+                try {
+                    Method method = rssItem.getClass().getMethod(methodName, News.class);
+                    method.invoke(rssItem, currentNews);
+                } catch (SecurityException e) {
+                } catch (NoSuchMethodException e) {
+                } catch (IllegalArgumentException e) {
+                } catch (IllegalAccessException e) {
+                } catch (InvocationTargetException e) {
+                }
+                currentNews = null;
             }
         }
 

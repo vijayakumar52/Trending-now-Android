@@ -29,8 +29,6 @@ public class RssFeed implements Parcelable {
     private String description;
     private String language;
     private ArrayList<RssItem> rssItems;
-    private String views;
-    private String imageURL;
 
     public RssFeed() {
         rssItems = new ArrayList<RssItem>();
@@ -44,8 +42,6 @@ public class RssFeed implements Parcelable {
         description = data.getString("description");
         language = data.getString("language");
         rssItems = data.getParcelableArrayList("rssItems");
-        views = data.getString("ht:approx_traffic");
-        imageURL = data.getString("ht:picture");
 
     }
 
@@ -58,8 +54,6 @@ public class RssFeed implements Parcelable {
         data.putString("description", description);
         data.putString("language", language);
         data.putParcelableArrayList("rssItems", rssItems);
-        data.putString("ht:approx_traffic", views);
-        data.putString("ht:picture", imageURL);
         dest.writeBundle(data);
     }
 
@@ -122,19 +116,4 @@ public class RssFeed implements Parcelable {
         this.rssItems = rssItems;
     }
 
-    public String getViews() {
-        return views;
-    }
-
-    public void setViews(String views) {
-        this.views = views;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 }

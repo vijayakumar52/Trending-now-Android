@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rounded_background"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_image"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_more_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/iv_image"
         app:layout_constraintTop_toTopOf="@+id/iv_image" />
@@ -28,17 +28,17 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:paddingLeft="4dp"
-        android:paddingTop="8dp"
         android:paddingRight="4dp"
-        android:paddingBottom="4dp"
         android:text="Trending title"
+        android:textColor="@color/md_grey_800"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toTopOf="@+id/iv_image" />
+        app:layout_constraintStart_toEndOf="@+id/image_right_barrier"
+        app:layout_constraintTop_toTopOf="@+id/image_right_barrier" />
 
     <TextView
         android:id="@+id/tv_count"
@@ -48,10 +48,11 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="10 Million"
+        android:textColor="@color/md_grey_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toLeftOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintLeft_toLeftOf="@id/image_right_barrier"
+        app:layout_constraintStart_toStartOf="@+id/image_right_barrier"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         app:layout_constraintVertical_bias="0" />
 
@@ -65,12 +66,32 @@
         android:paddingRight="16dp"
         android:singleLine="true"
         android:text="www.google.com"
+        android:textColor="@color/md_blue_500"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toLeftOf="@id/tv_count"
-        app:layout_constraintStart_toStartOf="@+id/tv_count"
+        app:layout_constraintLeft_toLeftOf="@id/image_right_barrier"
+        app:layout_constraintStart_toStartOf="@+id/image_right_barrier"
         app:layout_constraintTop_toBottomOf="@id/tv_count"
         app:layout_constraintVertical_bias="0" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/image_right_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="iv_image" />
+
+    <TextView
+        android:id="@+id/tv_more_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Some more details here."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
