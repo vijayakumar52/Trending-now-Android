@@ -1,25 +1,23 @@
 package com.vijay.trendingnow
 
 import android.content.Context
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import com.vijay.trendingnow.db.TrendingData
-import org.w3c.dom.Text
+import com.vijay.trendingnow.model.Default
 
-class RecyclerViewAdapter(val context: Context, val recyclerView: RecyclerView, var listItems: List<TrendingData>) : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
+class RecyclerViewAdapter(val context: Context, val recyclerView: RecyclerView, var listItems: List<Default>) : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
     var mExpandedPosition = -1
     var mPreviousExpandedPosition = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_elements, parent, false))
     }
 
-    fun updateItems(newElements: List<TrendingData>) {
+    fun updateItems(newElements: List<Default>) {
         listItems = newElements
         notifyDataSetChanged()
     }
@@ -30,14 +28,31 @@ class RecyclerViewAdapter(val context: Context, val recyclerView: RecyclerView, 
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val item = listItems.get(position)
-        holder.title.text = item.name
-        holder.views.text = item.views
-        holder.link.text = item.link
+       /* holder.title.text = item.name
+        holder.views.text = getViews(item.views!!)
+        //holder.link.text = item.description
         Picasso.get().load(item.imageURL).into(holder.imageView)
 
+        //setting news
+        if (item.news != null) {
+            for (i in 0 until item.news!!.size) {
+                val newsItem = item.news!![i]
+                val newsTitle = newsItem.title
+                val newsContent = newsItem.details
+                val newsSource = newsItem.source
+                if (i == 0) {
+                    holder.news_1_title.text = Html.fromHtml(newsTitle)
+                    holder.news_1_content.text = Html.fromHtml(newsContent)
+                    holder.news_1_source.text = newsSource
+                } else {
+
+                }
+            }
+        }*/
+
         val isExpanded = position == mExpandedPosition
-        holder.moreDetails.visibility = if (isExpanded) View.VISIBLE else View.GONE
-        holder.moreDetails.isActivated = isExpanded
+        holder.newsGroup.visibility = if (isExpanded) View.VISIBLE else View.GONE
+        holder.newsGroup.isActivated = isExpanded
 
         if (isExpanded) {
             mPreviousExpandedPosition = position
@@ -49,6 +64,16 @@ class RecyclerViewAdapter(val context: Context, val recyclerView: RecyclerView, 
         }
     }
 
+    private fun getViews(views: Long): String {
+        return if (views >= 1000000) {
+            String.format("%dM", views / 1000000)
+        } else if (views >= 1000) {
+            String.format("%dK", views / 1000)
+        } else {
+            return views.toString()
+        }
+    }
+
 
     inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val inflatedView = view;
@@ -56,6 +81,9 @@ class RecyclerViewAdapter(val context: Context, val recyclerView: RecyclerView, 
         val views = view.findViewById<TextView>(R.id.tv_count)
         val link = view.findViewById<TextView>(R.id.tv_link)
         val imageView = view.findViewById<ImageView>(R.id.iv_image)
-        val moreDetails = view.findViewById<TextView>(R.id.tv_more_details)
+        val news_1_title = view.findViewById<TextView>(R.id.tv_news_title1)
+        val news_1_content = view.findViewById<TextView>(R.id.tv_news_content1)
+        val news_1_source = view.findViewById<TextView>(R.id.tv_news_source1)
+        val newsGroup = view.findViewById<Group>(R.id.news_group)
     }
 }

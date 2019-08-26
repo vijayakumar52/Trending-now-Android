@@ -8,16 +8,24 @@ import androidx.room.Query
 
 @Dao
 interface TrendingDataDao {
-    @Query("SELECT * FROM trending")
-    fun getAllTrendingData(): LiveData<List<TrendingData>>
+    @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME}")
+    fun getAllDataLiveData(): LiveData<List<GoogleTrendingData>>
+
+    @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
+    fun getTrendingDataLiveData(date: String): LiveData<List<GoogleTrendingData>>
+
+    @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
+    fun getTrendingData(date: String): List<GoogleTrendingData>
 
     @Insert
-    fun addData(users: List<TrendingData>)
+    fun addData(users: GoogleTrendingData)
+
+    @Insert
+    fun addData(users: List<GoogleTrendingData>)
 
     @Delete
-    fun deleteData(user: TrendingData)
+    fun deleteData(user: GoogleTrendingData)
 
-
-    @Query("DELETE FROM trending WHERE id NOT IN (SELECT id FROM trending ORDER BY id LIMIT 20);")
-    fun removeOldData()
+    @Query("DELETE FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
+    fun deleteData(date: String)
 }

@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rounded_background"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_more_details"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_news_source2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/iv_image"
         app:layout_constraintTop_toTopOf="@+id/iv_image" />
@@ -83,15 +83,54 @@
         app:constraint_referenced_ids="iv_image" />
 
     <TextView
-        android:id="@+id/tv_more_details"
+        android:id="@+id/tv_news_title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Some more details here."
+        android:layout_marginTop="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="News1 title"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_image" />
+
+    <TextView
+        android:id="@+id/tv_news_content1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="News1 content."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_news_title1" />
+
+    <TextView
+        android:id="@+id/tv_news_source1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="News1 content."
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_news_content1" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/news_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_news_title1, tv_news_content1, tv_news_source1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
