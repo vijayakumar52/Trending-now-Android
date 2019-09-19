@@ -1,11 +1,11 @@
 package com.vijay.trendingnow
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.vijay.androidutils.Logger
-import com.vijay.androidutils.PrefUtils
 import com.vijay.trendingnow.db.AppDatabase
 import com.vijay.trendingnow.db.GoogleTrendingData
+import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -15,7 +15,7 @@ class DashboardRepository(val context: Context, private val databaseInstance: Ap
     val networkManager = NetworkRequestManager()
     val compositeDisposable = CompositeDisposable()
 
-    fun getGoogleTrendingList(): LiveData<List<GoogleTrendingData>> {
+    fun getGoogleTrendingList(): Flowable<List<GoogleTrendingData>> {
         val calendar = Calendar.getInstance()
         var month = (calendar.get(Calendar.MONTH) + 1).toString()
         val year = calendar.get(Calendar.YEAR).toString()
@@ -43,7 +43,7 @@ class DashboardRepository(val context: Context, private val databaseInstance: Ap
             val trendingSearchDays = data.default.trendingSearchDays
             for (eachDay in trendingSearchDays) {
                 val trendingData = GoogleTrendingData()
-                trendingData.date = eachDay.date
+                trendingData.date = eachDay.date.toLong()
                 trendingData.formattedDate = eachDay.formattedDate
                 trendingData.trendingSearches = eachDay.trendingSearches
                 googleTrendingList.add(trendingData)
@@ -53,6 +53,10 @@ class DashboardRepository(val context: Context, private val databaseInstance: Ap
         }, {
 
         }))
+    }
+
+    fun deleteAllData(){
+        databaseInstance.trendingDao().flushTable()
     }
 
     companion object {

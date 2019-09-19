@@ -20,12 +20,17 @@ class MainActivity : AppCompatActivity() {
         //recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         dashboardVieModel.getGoogleTrendingList().observe(this, Observer { it ->
             val x = 0
-            /*if (recyclerView.adapter == null) {
-                val adapter = RecyclerViewAdapter(this, recyclerView, it)
+            if (recyclerView.adapter == null) {
+                val adapter = RecyclerViewAdapter(this, it)
                 recyclerView.adapter = adapter
             } else {
                 (recyclerView.adapter as RecyclerViewAdapter).updateItems(it)
-            }*/
+            }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dashboardVieModel.deleteAllData()
     }
 }

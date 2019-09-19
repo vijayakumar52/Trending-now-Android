@@ -1,18 +1,18 @@
 package com.vijay.trendingnow.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import io.reactivex.Flowable
 
 @Dao
 interface TrendingDataDao {
     @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME}")
-    fun getAllDataLiveData(): LiveData<List<GoogleTrendingData>>
+    fun getAllDataLiveData(): Flowable<List<GoogleTrendingData>>
 
     @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
-    fun getTrendingDataLiveData(date: String): LiveData<List<GoogleTrendingData>>
+    fun getTrendingDataLiveData(date: String): Flowable<List<GoogleTrendingData>>
 
     @Query("SELECT * FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
     fun getTrendingData(date: String): List<GoogleTrendingData>
@@ -28,4 +28,7 @@ interface TrendingDataDao {
 
     @Query("DELETE FROM ${GoogleTrendingData.TABLE_NAME} WHERE Date is :date")
     fun deleteData(date: String)
+
+    @Query("DELETE FROM ${GoogleTrendingData.TABLE_NAME}")
+    fun flushTable()
 }

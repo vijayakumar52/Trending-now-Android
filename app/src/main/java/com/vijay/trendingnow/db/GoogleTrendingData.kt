@@ -16,7 +16,7 @@ class GoogleTrendingData {
     var id: Long = 0
 
     @ColumnInfo(name = "Date")
-    lateinit var date: String
+    var date: Long = 0
 
     @ColumnInfo(name = "Formatted Date")
     lateinit var formattedDate: String
